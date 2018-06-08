@@ -1,6 +1,6 @@
-# GettingandCleaningData
+# Getting and Cleaning Smartphone Dataset
 Peer-graded Assignment: Getting and Cleaning Data Course Project
-The script run_analysis.R uses data from the UCI Machine Learning Repository.
+The script ```run_analysis.R``` uses data from the UCI Machine Learning Repository.
 Information on the data can be found here:
 
 http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
