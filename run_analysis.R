@@ -9,6 +9,7 @@ headers<-read.delim("features.txt", sep = "", header = FALSE)[,2]
 x_test<-read.delim("X_test.txt", sep = "", header = FALSE)
 x_test<-x_test %>% rename_at(names(x_test), ~ headers)
 
+
 x_train<-read.delim("X_train.txt", sep = "", header = FALSE)
 x_train<-x_train %>% rename_at(names(x_train), ~ headers)
 
@@ -18,14 +19,18 @@ y_test<-rename(y_test, activity = V1)
 y_train<-read.delim("Y_train.txt", sep = "", header = FALSE)
 y_train<-rename(y_train, activity = V1)
 
-test<-cbind(y_test, x_test)
-train<-cbind(y_train, x_train)
+sub_test <- read.delim("subject_test.txt", sep = "", header = FALSE)
+sub_test<-rename(sub_test, subject = V1)
+sub_train <- read.delim("subject_train.txt", sep = "", header = FALSE)
+sub_train<-rename(sub_train, subject = V1)
+
+test<-cbind(sub_test,y_test, x_test)
+train<-cbind(sub_train, y_train, x_train)
 all_data<-as.data.frame(rbind(test,train))
 
 
 #Extracts only the measurements on the mean and standard deviation for each measurement.
-all_data<-all_data[,grep('mean()|std()|activity', names(all_data), value=FALSE)]
-
+all_data<-all_data[,grep('mean()|std()|activity|subject', names(all_data), value=FALSE)]
 
 
 #Use descriptive activity names to name the activities in the data set.
@@ -47,7 +52,6 @@ all_data<-all_data %>% rename_at(names(all_data), ~sub("()", "", names(all_data)
 
 
 #Creates an independent tidy data set with the average of each variable for each activity and each subject.
-means<-all_data %>% group_by(activity) %>% summarise_all(funs(mean)) %>% gather(measurement, mean, -activity)
+means<-all_data %>% group_by(subject, activity) %>% summarise_all(funs(mean)) %>% gather(measurement, mean, -(subject:activity))
 
 write.table(means, file = 'means.txt', row.name=FALSE)
-
