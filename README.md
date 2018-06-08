@@ -19,4 +19,4 @@ The script performs  3 main functions:
 2) It selects only the variables representing the mean and standard deviation for each measurement
 3) It redefines the activity variable from numeric (1:6) to character values that describe the activity
 4) It renames the variable names to be more intuitive
-5) It summarizes the selected variables by taking the mean over all subjects and exports that file as mean.txt
+5) It summarizes the selected variables by taking the mean by activty and by each subject, and exports that file as means.txt
