@@ -1,4 +1,5 @@
-#Input Data Infromation
+# Input Data
+
 The UCI Respository descibes the input data as follows:
 
 The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years.
@@ -18,6 +19,7 @@ The features selected for this database come from the accelerometer and gyroscop
 These time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz.
 Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to
 remove noise.
+
 Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ)
 using another low pass Butterworth filter with a corner frequency of 0.3 Hz. 
 
@@ -77,4 +79,20 @@ tBodyAccJerkMean
 tBodyGyroMean
 tBodyGyroJerkMean
 
-The complete list of variables of each feature vector is available in 'features.txt'
+# Data Processing
+
+The script ```run_analysis.R``` performs the following basic steps:
+
+1. It merges the training and testing data set to create a single data set.
+2. It the selects only the (79) variables representing the mean and standard deviation for each measurement. Those variables 
+are identified as any variable with mean() or std() in the variable name.
+3. It redefines the activity variable from numeric (1:6) to character values that describe the activity (e.g., WALKING,
+WALKING_UPSTAIRS, etc.)
+4. It renames the variable names to be more intuitive. All variables starting with "t" were renamed to "Time' to denote
+that they represent raw time domain signals. All variables starting with "f" were renamed to "Fourier" to denote
+that they represent Fast Fourier Transform (FFT) of the time domain signals. 
+5. Finally, it summarizes the selected 79 variables by taking the mean for each activity group. This data is exported into the file
+"means.txt". This activity variable denotes one of the 6 activity groups (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS,
+SITTING, STANDING, LAYING). The measurement variable denotes one of the 79 measurements. The mean variable denotes the average of 
+the measurement across all individuals for the activity group.
+
